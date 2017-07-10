@@ -1,0 +1,86 @@
+// 基础
+@import "@base/index";
+
+// 面板
+@import "@panel/index";
+
+// 窗口
+@import "@window/index";
+
+.fui-table{
+	position:relative;
+}
+
+table {
+	width: 100%;
+	overflow: auto;
+	word-break: normal;
+	word-break: keep-all;
+	border-collapse: collapse;
+	border-spacing: 0;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	
+	
+
+	th {
+		font-weight: bold;
+		background-color: #F5F5F5;
+		position:relative;
+		&:hover{
+			background-color: #f1f1f1;
+		}
+	}
+	
+	
+	th,
+	td {
+		padding: 6px 13px;
+		border: 1px solid #DBDBDB;
+	}
+	
+	tr {
+		background-color: #fff;
+		border-top: 1px solid #DBDBDB;
+		&:hover {
+			background-color: #FCFCFC;
+		}
+	}
+}
+
+.fui-table-header-splitter{
+	position: absolute;
+    overflow: hidden;
+    background: none;
+    cursor: e-resize;
+    opacity: .0;
+    -moz-opacity: .0;
+    filter: alpha(opacity=0);
+    z-index: 1;
+    top: 0px;
+    right: -5px;
+    height: 100%;
+    width: 10px;
+	
+}
+
+.fui-proxy{
+	position:absolute;
+	cursor:e-resize;
+	bottom:0;
+	.fui-proxy-border{
+		position:absolute;
+		left:0;
+		top:0;
+		width:100%;
+		height:100%;
+		border:dotted 1px #999;
+	}
+	.fui-proxy-inner{
+		width:100%;
+		height:100%;
+		background:rgba(0,0,0,0.2);
+		filter:alpha(opacity=20);
+	}
+}

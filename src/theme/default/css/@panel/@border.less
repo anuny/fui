@@ -1,0 +1,90 @@
+
+@borderWidth:1px;
+@borderColor:#ddd;
+
+// 头部
+&-@{panel}-border{
+	&-header-left{
+		position: absolute;
+		left:0;
+		top:0;
+		width:@borderWidth;
+		height:@headerHeight;
+		background:@borderColor;
+	}
+	&-header-top{
+		position: absolute;
+		left:0;
+		top:0;
+		width:100%;
+		height:@borderWidth;
+		background:@borderColor;
+	}
+	&-header-right{
+		position: absolute;
+		right:0;
+		top:0;
+		width:@borderWidth;
+		height:@headerHeight;
+		background:@borderColor;
+	}
+	&-header-bottom{
+		position: absolute;
+		left:0;
+		top:@headerHeight;
+		width:100%;
+		height:@borderWidth;
+		background:@borderColor;
+	}
+	
+	&-viewport-left{
+		position: absolute;
+		left:0;
+		top:@headerHeight;
+		width:@borderWidth;
+		bottom:@footerHeight;
+		background:@borderColor;
+	}
+	&-viewport-right{
+		position: absolute;
+		right:0;
+		top:@headerHeight;
+		width:@borderWidth;
+		bottom:@footerHeight;
+		background:@borderColor;
+	}
+	
+	&-footer-left{
+		position: absolute;
+		left:0;
+		bottom:0;
+		width:@borderWidth;
+		height:@footerHeight;
+		background:@borderColor;
+	}
+	&-footer-top{
+		position: absolute;
+		left:0;
+		bottom:@footerHeight;
+		width:100%;
+		height:@borderWidth;
+		background:@borderColor;
+	}
+	&-footer-right{
+		position: absolute;
+		right:0;
+		bottom:0;
+		width:@borderWidth;
+		height:@footerHeight;
+		background:@borderColor;
+	}
+	&-footer-bottom{
+		position: absolute;
+		left:0;
+		bottom:0;
+		width:100%;
+		height:@borderWidth;
+		background:@borderColor;
+	}
+	
+}

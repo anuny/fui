@@ -1,0 +1,167 @@
+body .fui-panel *,
+body .fui-window * {
+    box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    -ms-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+}
+
+.fui-cursor-move{
+	cursor:move
+}
+.fui-cursor-nw-resize{
+	cursor:nw-resize
+}
+
+
+.@{prefix}{
+
+	// 面板类名
+	@panel:panel;
+
+	&-@{panel}{
+		font-size: 9pt;
+		font-family: Tahoma, Verdana, 宋体;
+		overflow: hidden;
+		position: relative;
+		outline: none;
+
+		// 标题
+		& &-title{
+			padding-top: 0px\9;
+			float: left;
+			line-height: 16px;
+		}
+
+	}
+	
+	@headerHeight:30px;
+	@footerHeight:30px;
+
+	// 头部
+	&-@{panel}-header{
+		width: 100%;
+		height:@headerHeight;
+		overflow: hidden;
+		background: #E3E6E8 url(../images/window/header.png) repeat-x 0 1px;;
+		color: #201F35;
+		cursor: default;
+		position: absolute;
+		left:0;
+		top:0;
+		zoom: 1;
+
+		&-inner{
+			padding: 5px 4px 5px 8px;
+			overflow: hidden;
+		}
+	}
+	
+	// 工具栏
+	&-@{panel}-tools{
+		position: absolute;
+		top: 4px;
+		right: 4px;
+
+		button{
+			width: 15px;
+			height: 15px;
+			overflow: hidden;
+			cursor: pointer;
+			margin-left: 5px;
+			text-indent:-999999px;
+			box-sizing: border-box;
+			float:left;
+		}
+	}
+	
+	// 内容区域
+	&-@{panel}-viewport{
+		position: absolute;
+		top:@headerHeight;
+		bottom:@footerHeight;
+		left:0;
+		right:0;
+		text-align: left;
+		width: auto;
+		overflow: auto;
+		clear: both;
+		background:#fff;
+		
+		&-inner{
+			padding: 5px ;
+		}
+	}
+
+	// 脚部
+	&-@{panel}-footer{
+		border-top: solid 1px #C9C9C9;
+		background: #eff2f4;
+		width: auto;
+		position: absolute;
+		overflow: hidden;
+		line-height: 18px;
+		left:0;right:0;
+		bottom:0;height:@footerHeight;
+		zoom: 1;
+
+		button {
+			overflow: hidden;
+			cursor: pointer;
+			margin-left: 5px;
+			box-sizing: border-box;
+			float:right;
+		}
+
+	}
+	
+	// resize
+	&-@{panel}-resize{
+		position:absolute;
+		width:12px;
+		height:12px;
+		cursor: nw-resize;
+		z-index: 100;
+		right: 1px;
+		bottom: 1px;
+		overflow: hidden;
+		background: url(../images/window/resize.gif) no-repeat right bottom;
+	}
+	
+	// 拖拽代理
+	&-@{panel}-proxy{
+		
+		position:absolute;
+		overflow:hidden;
+
+		
+		// 边框
+		& &-border{
+			border:#000 solid 1px;
+			opacity:0.3;
+			filter:alpha(opacity=30);
+			position:absolute;
+			left:0;
+			top:0;
+			bottom:0;
+			right:0;
+		}
+		
+		// 背景
+		& &-inner{
+			opacity:0.1;
+			filter:alpha(opacity=10);
+			background:#000;
+			position:absolute;
+			width:100%;
+			height:100%;
+			left:0;
+			top:0
+		}
+		
+	}
+	
+	// 面板边框
+	@import "@border";
+
+}
