@@ -1,0 +1,26 @@
+{
+	"site":{
+		"title":"fui",
+		"author":"Anuny - http://yangfei.name",
+		"siteurl":"http://www.yangfei.com",
+		"keywords":"fui",
+		"description":"fui",
+		"lang":"zh-cmn-Hans",
+		"charset":"utf-8"
+	},
+	"system":{
+		"version":"0.0.1",
+		"theme":"default",
+		"cssPreFix":true,
+		"browsersVer":["last 2 versions", "Android >= 4.0","IE 7", "IE 8", "IE 9", "IE 10", "Firefox 14", "Opera 11.1"],
+		"watch":true,
+		"openBrowser":false,
+		"reloadBrowser":true,
+		"filter":"@",
+		"fix" : {
+			"tpl"    : "{html,htm,tpl}",
+			"css"    : "{less,css}",
+			"html"   : ".html"
+		}
+	} 
+}
