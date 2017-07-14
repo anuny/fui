@@ -1,3 +1,5 @@
+//=require helper/index.js
+
 /* 构建 */
 //=require core/index.js
 

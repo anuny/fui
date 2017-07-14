@@ -1,4 +1,4 @@
-fui.define('dom/core',function( module ){
+fui.define('dom',function( module ){
 	
 	"use strict";
 	

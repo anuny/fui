@@ -42,6 +42,7 @@ fui.define('core/extend',function( module ){
 		};
 		
 		
+		
         newExt.superclass = target_proto;
         newExt.superclass.constructor = target;
 	

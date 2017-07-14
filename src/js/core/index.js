@@ -1,4 +1,4 @@
-(function(win){
+!function(win){
 	'use strict';
 	
 	var doc = win.document,
@@ -63,4 +63,4 @@
 	};
 	fui.extend({define:define,require:require,window:win,document:doc});
 	win.fui = fui;
-})(this);
+}(this);

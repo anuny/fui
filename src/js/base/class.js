@@ -13,37 +13,43 @@ var getModule = function(option){
 
 fui.reg = function(option){
 
-	var init = function (){
-		this.supperClass.constructor.call(this);
+	var constructor = function (){
+		fui[module.type][module.name].superclass.constructor.call(this);
 	};
 
 	var module = getModule(option.module);
 	
-	fui[module.type][module.name] = option.init || init;
+	fui[module.type][module.name] = option.constructor || constructor;
 	
-	var _this = fui[module.type][module.name];
+	var newClass = fui[module.type][module.name];
 	
-	var thisPrototype = _this.prototype;
+	var thisPrototype = newClass.prototype;
 
-	if(option.mothed){
-		fui.extend(thisPrototype,option.mothed);
-	}
-	
 	if(option.extend){
 		var extend = getModule(option.extend);
-		var extendPrototype = fui[extend.type][extend.name].prototype;
-		fui.extend(thisPrototype,extendPrototype,option.mothed,{supperClass:extendPrototype});
+		var extendClass = fui[extend.type][extend.name];
+		var extendPrototype = extendClass.prototype;
+		fui.extend(thisPrototype,extendPrototype);
+		
+		thisPrototype.superclass = extendPrototype;
+		thisPrototype.superclass.constructor = extendClass;
 	};
+	
+	
+	if(option.prototype){
+		fui.extend(thisPrototype,option.prototype);
+	}
+	
 	fui.extend(thisPrototype,{module:option.module});
-	return _this;
+	return newClass;
 }
 
 fui.reg({
 	module:'base.ctrl',
-	init:function(){
+	constructor:function(){
 		this.uid = 123;
 	},
-	mothed:{
+	prototype:{
 		isCtrl : true,
 		name:'base',
 		sss:1,
@@ -56,15 +62,35 @@ fui.reg({
 var test = fui.reg({
 	module:'plugin.test',
 	extend:'base.ctrl',
-	mothed:{
+	constructor:function(){
+		fui.plugin.test.superclass.constructor.call(this);
+		this.uid = this.uid +1
+	},
+	prototype:{
 		name:'test',
 		sss:2,
 		test:function(){
-			return this.supperClass.test.call(this)
+			return this.superclass.test.call(this)
 		}
 	}
 });
 
-console.log(new test())
+var demo = fui.reg({
+	module:'plugin.demo',
+	extend:'plugin.test',
+	constructor:function(){
+		console.log(fui.plugin.demo.superclass)
+		fui.plugin.demo.superclass.constructor.call(this);
+	},
+	prototype:{
+		name:'demo',
+		sss:5,
+		test:function(){
+			return this.superclass.test.call(this)
+		}
+	}
+});
+
+console.log(new demo())
 
 //constructor
