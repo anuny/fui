@@ -1,17 +1,21 @@
-fui.jQuery(function(){
-	fui.parse();
-	fui.ready = true;
-	fui.trigger('ready');
+!function(){
+	var $ = fui.dom;
+	$(function(){
+		fui.parse();
+		fui.ready = true;
+		fui.trigger('ready');
+	});
+
+	$(fui.window).on('load',function(){
+		fui.layout();
+		fui.load = true;
+		fui.trigger('load');
+	});
+
+
+	$(fui.window).on('resize',function(){
+		fui.trigger('resize');
+	});
+}()
 	
-});
-
-fui.jQuery(fui.window).on('load',function(){
-	fui.layout();
-	fui.load = true;
-	fui.trigger('load');
-});
-
-
-fui.jQuery(fui.window).on('resize',function(){
-	fui.trigger('resize');
-});
+	

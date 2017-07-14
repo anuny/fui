@@ -1,4 +1,7 @@
 !function(){
+	var isFunction = function(obj){
+		return typeof obj === "function";
+	};
 	var json = {
 	parse :function(string){
 		return eval('(' + string + ')');
@@ -41,7 +44,7 @@
 }
 
 for(var i in json){
-	if(!JSON || typeof JSON[i] != "function"){
+	if(!JSON || !isFunction(JSON[i])){
 		JSON[i] = json[i];
 	}
 }

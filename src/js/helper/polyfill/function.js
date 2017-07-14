@@ -1,4 +1,7 @@
 !function(){
+	var isFunction = function(obj){
+		return typeof obj === "function";
+	};
 	var functions = {
 		bind:function(oThis){
 			if (typeof this !== "function") {
@@ -17,7 +20,7 @@
 	}
 
 	for(var i in functions){
-		if(typeof Function.prototype[i] != "function"){
+		if(!isFunction(Function.prototype[i])){
 			Function.prototype[i] = functions[i];
 		}
 	}

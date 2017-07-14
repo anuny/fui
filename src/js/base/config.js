@@ -2,7 +2,7 @@ fui.define('core/config',function( module ){
 
 	'use strict';
 	
-	var $ = fui.jQuery,
+	var $ = fui.dom,
 	
 	uid = fui.uid;
 	

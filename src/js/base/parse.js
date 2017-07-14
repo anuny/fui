@@ -2,7 +2,7 @@ fui.define('core/parse',function( module ){
 
 	'use strict';
 	
-	var $ = fui.jQuery;
+	var $ = fui.dom;
 	
 	
 	var _doParse = function(node) {
@@ -44,9 +44,7 @@ fui.define('core/parse',function( module ){
 		};
 		
 
-		var children = node.find('[class]').filter(function(){
-			return ['SCRIPT','LINK'].indexOf(this.nodeName)<0;
-		});
+		var children = node.find('[class]')
 
 		children.each(function(){
 			

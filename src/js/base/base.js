@@ -2,7 +2,7 @@ fui.define('core/base',function( module ){
 	"use strict";
 	var win = window,
 	doc = win.document,
-	$ = window['fuijQuery']||window['jQuery'],	
+	$ = fui.dom,	
 	
 	$head = $('head'),
 	
@@ -112,11 +112,14 @@ fui.define('core/base',function( module ){
 		mode       : mode || 'default',
 		theme      : theme || 'default',
 		load       : load,
-		jQuery     : $,
 		isJquery   : isJquery,
 		version    : '__FUI__VERSION__'
 	};               
 	components = null;
+	
+	if(!win['jQuery']){
+		win['$'] = $;
+	}
 });
 fui.extend(fui.require('core/base'));
 

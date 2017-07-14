@@ -21,6 +21,16 @@
 			$nodes.selector = this.selector + ' ' + selector;
 			return $nodes;
 		},
+		filter:function(selector){
+			var nodes = [];
+			this.each(function(i){
+				if (!selector.call(this,i)) nodes.push(this);
+			})
+			return $(nodes)
+		},
+		children:function(selector){
+			return this.find('>'+selector||'*')
+		},
 		on:function(){
 			
 		},

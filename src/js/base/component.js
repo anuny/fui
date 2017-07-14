@@ -1,5 +1,5 @@
 (function(){
-	var $ = fui.jQuery;
+	var $ = fui.dom;
 	
 	fui.base.component = function() {
 		this.uid = fui.creatUid();

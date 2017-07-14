@@ -1,8 +1,11 @@
 !function(){
+	var isFunction = function(obj){
+		return typeof obj === "function";
+	};
 	var array = {
 		forEach:function(callback){
 			var len = this.length;
-			if(typeof callback != "function") {
+			if(!isFunction(callback)) {
 				throw new TypeError();
 			};
 			var context = arguments[1];
@@ -12,7 +15,7 @@
 			return this;
 		},
 		map:function(callback){
-			if(typeof callback != "function") {
+			if(!isFunction(callback)) {
 				throw new TypeError();
 			}
 			var array = [];
@@ -23,7 +26,7 @@
 			return array;
 		},
 		filter:function(callback){
-			if(typeof callback != "function") {
+			if(!isFunction(callback)) {
 				throw new TypeError();
 			};
 			var context = arguments[1];
@@ -33,7 +36,7 @@
 			return array;
 		},
 		every:function(callback){
-			if(typeof callback != "function") {
+			if(!isFunction(callback)) {
 				throw new TypeError();
 			};
 			var context = arguments[1];
@@ -45,7 +48,7 @@
 			return true;
 		},
 		some:function(callback){
-			if(typeof callback != "function") {
+			if(!isFunction(callback)) {
 				throw new TypeError();
 			};
 			var context = arguments[1];
@@ -101,7 +104,7 @@
 
   
 	for(var i in array){
-		if(typeof Array.prototype[i] != "function"){
+		if(!isFunction(Array.prototype[i])){
 			Array.prototype[i] = array[i];
 		}
 	}

@@ -1,4 +1,7 @@
 !function(){
+	var isFunction = function(obj){
+		return typeof obj === "function";
+	};
 	var string = {
 		trim:function(){
 			return this.replace(/^\s+|\s+$/g,'');
@@ -15,7 +18,7 @@
 	}
 
 	for(var i in string){
-		if(typeof String.prototype[i] != "function"){
+		if(!isFunction(String.prototype[i])){
 			String.prototype[i] = string[i];
 		}
 	}

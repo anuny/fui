@@ -2,7 +2,7 @@ fui.define('core/layout',function( module ){
 
 	'use strict';
 	
-	var $ = fui.jQuery;
+	var $ = fui.dom;
 	var util = fui.util;
 	var layout = function(node) {
 		if (!node){

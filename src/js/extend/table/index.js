@@ -1,6 +1,6 @@
 (function(){
 	'use strict';
-	var $ = fui.jQuery;
+	var $ = fui.dom;
 	var util = fui.util;
 
 	fui.plugin({
@@ -72,11 +72,14 @@
 				attributes = ['field','name','title','style','sort','resize','width','headerAlign','align','visible','type','filter'],
 				tagName = 'div',
 				self = this;
+				
 				var tpl = this.source.children(tagName);
-
+				
+				
 
 				// 递归所有节点，转换数据
 				function getData(node,num){
+					
 					node.each(function(i){
 						
 						var data = {},
@@ -90,7 +93,7 @@
 						len = children.length;
 						
 						// 保存属性
-						$.extend(data,propertys),
+						fui.extend(data,propertys),
 						
 						data.title = data.title||$(this).text();
 						

@@ -1,4 +1,7 @@
 !function(){
+	var isFunction = function(obj){
+		return typeof obj === "function";
+	};
 	var object = {
 		create:function(proto){
 			if (arguments.length > 1) {
@@ -30,7 +33,7 @@
 	}
 
 	for(var i in object){
-		if(typeof Object[i] != "function"){
+		if(!isFunction(Object[i])){
 			Object[i] = object[i];
 		}
 	}

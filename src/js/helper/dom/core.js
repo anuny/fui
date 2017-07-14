@@ -1,4 +1,4 @@
-fui.define('dom',function( module ){
+fui.define('dom/core',function( module ){
 	
 	"use strict";
 	
@@ -198,6 +198,10 @@ fui.define('dom',function( module ){
 	dom.fn = dom.prototype = {
 		constructor: dom,
 		fuiDom: function(selector, context) {
+			if(typeof selector=='function'){
+				dom.ready(selector);
+				selector = doc;
+			}
 			var result = query(selector, context);
 			this.length = 0;
 			this.selector = result.selector;

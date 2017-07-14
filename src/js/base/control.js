@@ -1,5 +1,5 @@
 (function(){
-	var $ = fui.jQuery;
+	var $ = fui.dom;
 
 	fui.plugin({
 		module : 'base.control',

@@ -1202,7 +1202,7 @@ fui.define('template',function( module ){
 	
 	var h2v = (function(){
 		function h2v (html) {
-		  var root = $(html)[0]
+		  var root = $(html)[0];
 		  return {
 			vdom: toVirtualDOM(root),
 			dom: root
@@ -1210,7 +1210,7 @@ fui.define('template',function( module ){
 		}
 
 		function toVirtualDOM (dom) {
-		  var tagName = dom.tagName.toLowerCase()
+		  var tagName = dom.tagName && dom.tagName.toLowerCase();
 		  var props = attrsToObj(dom)
 		  var children = []
 		  for (var i = 0, len = dom.childNodes.length; i < len; i++) {
@@ -1305,7 +1305,7 @@ fui.define('template',function( module ){
 		}
 
 		function makeVirtualDOM () {
-		  var html = this.compileFn(this.data)
+		  var html = this.compileFn(this.data);
 		  return h2v(html)
 		} 
 
