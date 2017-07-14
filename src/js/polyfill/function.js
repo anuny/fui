@@ -1,4 +1,4 @@
-(function(){
+!function(){
 	var functions = {
 		bind:function(oThis){
 			if (typeof this !== "function") {
@@ -21,4 +21,4 @@
 			Function.prototype[i] = functions[i];
 		}
 	}
-})();
+}();

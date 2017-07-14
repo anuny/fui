@@ -1,4 +1,4 @@
-(function(){
+!function(){
 	var array = {
 		forEach:function(callback){
 			var len = this.length;
@@ -79,15 +79,14 @@
 			return -1
 		},
 		lastIndexOf:function(searchvalue,fromindex){
-			var index = -1, length = this.length;
+			var length = this.length;
 			fromindex = fromindex * 1 || length - 1;
 			this.forEach(function(ele,i){
 				if (i <= fromindex && ele === searchvalue) {
-					index = i;
-					break;
+					return i;
 				}
 			})
-			return index;
+			return -1;
 		},
 		max:function(){
 			return Math.max.apply({}, this)
@@ -106,4 +105,4 @@
 			Array.prototype[i] = array[i];
 		}
 	}
-})();
+}();

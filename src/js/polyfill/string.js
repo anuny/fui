@@ -1,4 +1,4 @@
-(function(){
+!function(){
 	var string = {
 		trim:function(){
 			return this.replace(/^\s+|\s+$/g,'');
@@ -19,4 +19,4 @@
 			String.prototype[i] = string[i];
 		}
 	}
-})();
+}();

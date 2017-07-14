@@ -1,4 +1,4 @@
-(function(){
+!function(){
 	var object = {
 		create:function(proto){
 			if (arguments.length > 1) {
@@ -30,8 +30,9 @@
 	}
 
 	for(var i in object){
-		if(typeof Object.prototype[i] != "function"){
-			Object.prototype[i] = object[i];
+		if(typeof Object[i] != "function"){
+			Object[i] = object[i];
 		}
 	}
-})();
+	
+}();

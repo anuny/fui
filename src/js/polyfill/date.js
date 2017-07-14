@@ -7,7 +7,7 @@
 
 	for(var i in date){
 		if(typeof Date.prototype[i] != "function"){
-			Date.prototype[i] = object[i];
+			Date.prototype[i] = date[i];
 		}
 	}
 })();

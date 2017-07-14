@@ -1,4 +1,5 @@
-var json = {
+!function(){
+	var json = {
 	parse :function(string){
 		return eval('(' + string + ')');
 	},
@@ -37,11 +38,11 @@ var json = {
 			return '"' + value.toString().replace(escRE, escFunc) + '"';
 		};
     })()
-	}
 }
 
 for(var i in json){
-	if(typeof JSON.prototype[i] != "function"){
-		JSON.prototype[i] = json[i];
+	if(!JSON || typeof JSON[i] != "function"){
+		JSON[i] = json[i];
 	}
 }
+}();
