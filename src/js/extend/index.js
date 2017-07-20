@@ -1,1 +1,0 @@
-//=require template/index.js
