@@ -2,7 +2,7 @@
 	var isFunction = function(obj){
 		return typeof obj === "function";
 	};
-	var array = {
+	var polyfill = {
 		forEach:function(callback){
 			var len = this.length;
 			if(!isFunction(callback)) {
@@ -103,9 +103,9 @@
 	}
 
   
-	for(var i in array){
+	for(var i in polyfill){
 		if(!isFunction(Array.prototype[i])){
-			Array.prototype[i] = array[i];
+			Array.prototype[i] = polyfill[i];
 		}
 	}
 }();

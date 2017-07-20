@@ -2,7 +2,7 @@
 	var isFunction = function(obj){
 		return typeof obj === "function";
 	};
-	var json = {
+	var polyfill = {
 	parse :function(string){
 		return eval('(' + string + ')');
 	},
@@ -43,9 +43,9 @@
     })()
 }
 
-for(var i in json){
+for(var i in polyfill){
 	if(!JSON || !isFunction(JSON[i])){
-		JSON[i] = json[i];
+		JSON[i] = polyfill[i];
 	}
 }
 }();

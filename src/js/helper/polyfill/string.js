@@ -2,7 +2,7 @@
 	var isFunction = function(obj){
 		return typeof obj === "function";
 	};
-	var string = {
+	var polyfill = {
 		trim:function(){
 			return this.replace(/^\s+|\s+$/g,'');
 		},
@@ -17,9 +17,9 @@
 		}
 	}
 
-	for(var i in string){
+	for(var i in polyfill){
 		if(!isFunction(String.prototype[i])){
-			String.prototype[i] = string[i];
+			String.prototype[i] = polyfill[i];
 		}
 	}
 }();
