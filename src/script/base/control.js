@@ -1,4 +1,4 @@
-(function(){
+!function(){
 	var $ = fui.dom;
 
 	fui.plugin({
@@ -36,9 +36,9 @@
 		
 	})
 
-})(); 
+}(); 
 
-(function(){
+!function(){
 	var $ = fui.jQuery;
 	fui.plugin({
 		module : 'plugins.hhh',
@@ -53,7 +53,7 @@
 		}
 	})
 	
-})(); 
+}(); 
 
 
 

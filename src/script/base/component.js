@@ -1,4 +1,4 @@
-(function(){
+!function(){
 	var $ = fui.dom;
 	
 	fui.base.component = function() {
@@ -72,7 +72,7 @@
 			return this;
 		}
 	};
-})();
+}();
 
 
 
