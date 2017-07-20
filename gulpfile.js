@@ -47,7 +47,7 @@ var PATH = {
 	SRC:{
 		DOC    : BASE.SRC + '/doc/**/*.' + SUFFIX.TPL,
 		DATAS  : BASE.SRC + '/datas/**/*.*',
-		JS     : BASE.SRC + '/js/**/*.js',
+		JS     : BASE.SRC + '/script/**/*.js',
 		LANG   : BASE.SRC + '/lang/**/*.js',
 		CSS    : BASE.SRC + '/theme/' + options.system.theme + '/css/**/*.' + SUFFIX.CSS,
 		IMAGES : BASE.SRC + '/theme/' + options.system.theme + '/images/**/*.' + SUFFIX.IMAGES,
@@ -138,7 +138,7 @@ gulp.task('mini', function() {
 });
 
 gulp.task('js', function () {
-    return gulp.src(BASE.SRC + '/js/index.js')
+    return gulp.src(BASE.SRC + '/script/index.js')
 		.pipe(include())
 		.pipe(concat('fui.js'))
 		.pipe(header(comment + '\n'))
