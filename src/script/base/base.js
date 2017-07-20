@@ -1,12 +1,12 @@
 fui.define('core/base',function( module ){	
+
 	"use strict";
-	var win = window,
-	doc = win.document,
-	$ = fui.dom,	
+	
+	var $ = fui.dom,	
 	
 	$head = $('head'),
 	
-	scripts = doc.scripts,
+	scripts = fui.document.scripts,
 	libScript = scripts[scripts.length-1],
 	scriptSrc = libScript.src,
 	path = scriptSrc.substring(0,scriptSrc.lastIndexOf("/")+1),
@@ -80,12 +80,6 @@ fui.define('core/base',function( module ){
 		}
 		return this;
 	},	
-	isJquery = function(node){
-		if(node instanceof $){
-			return true
-		}
-		return false
-	},
 	getFix = function(array){
 		return this.fix + array.join(this.splitter);
 	},
@@ -112,17 +106,12 @@ fui.define('core/base',function( module ){
 		mode       : mode || 'default',
 		theme      : theme || 'default',
 		load       : load,
-		isJquery   : isJquery,
 		version    : '__FUI__VERSION__'
 	};               
 	components = null;
 	
-	if(!win['jQuery']){
-		win['$'] = $;
+	if(!window['jQuery']){
+		window['$'] = $;
 	}
 });
 fui.extend(fui.require('core/base'));
-
-
-
-

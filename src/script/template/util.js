@@ -1,19 +1,7 @@
 fui.define('template/util',function( module ){
 	
 	var exports = {};
-
-	exports.type = function(obj) {
-		return Object.prototype.toString.call(obj).replace(/\[object\s|\]/g, '');
-	}
-
-	exports.isArray = function(list) {
-		return exports.type(list) === 'Array';
-	}
-
-	exports.isString = function(list) {
-		return exports.type(list) == 'String';
-	}
-
+	
 	exports.each = function(array, fn) {
 		for (var i = 0, len = array.length; i < len; i++) {
 			fn(array[i], i);

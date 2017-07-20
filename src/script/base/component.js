@@ -1,5 +1,6 @@
 !function(){
 	var $ = fui.dom;
+	var util = fui.util;
 	
 	fui.base.component = function() {
 		this.uid = fui.creatUid();
@@ -16,7 +17,7 @@
 
 		set: function(attrs) {
 			
-			if (typeof attrs == "string") {
+			if (util.isString(attrs)) {
 				return this;
 			}
 			
