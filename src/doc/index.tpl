@@ -83,7 +83,7 @@
 </div>
 
 <div id="hhh" class="fui-hhh">hhh</div>
-<!--<script src="static/lib/jquery/jquery.1.9.1.min.js" type="text/javascript" ></script>-->
+<script src="static/lib/jquery/jquery.1.9.1.min.js" type="text/javascript" ></script>
 <script src="fui/fui.js" type="text/javascript" fui-lang="zh" fui-debug="false" fui-mode="default" fui-theme="default"></script>
 <script>
 
