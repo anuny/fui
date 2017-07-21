@@ -176,7 +176,7 @@ fui.define('core/extend',function( module ){
 			attrs.defaultValue = attrs.value;
 		}
 		
-		this.el.replaceWith(node);
+		this.el.replaceAll(node);
 
 		this.set(attrs);
 		return this;

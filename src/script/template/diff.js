@@ -17,7 +17,7 @@ fui.define('template/diff',function( module ){
 		var currentPatch = [];
 		if (newNode === null) {
 			//依赖listdiff算法进行标记为删除
-		} else if (util.isString(oldNode) && util.isString(newNode)) {
+		} else if (fui.util(oldNode).isString && fui.util(newNode).isString) {
 			if (oldNode !== newNode) {
 				//如果是文本节点则直接替换文本
 				currentPatch.push({

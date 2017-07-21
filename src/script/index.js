@@ -7,9 +7,6 @@
 /* 工具 */
 //=require util/index.js
 
-/* dom */
-//=require dom/index.js
-
 /* 构建 */
 //=require base/index.js
 

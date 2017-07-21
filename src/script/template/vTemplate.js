@@ -1,5 +1,6 @@
 fui.define('template/vTemplate',function( module ){
 	var util = fui.require('template/util');
+	var diff = fui.require('template/diff');
 	var patch= fui.require('template/patch');
 	var h2v= fui.require('template/h2v');
 	

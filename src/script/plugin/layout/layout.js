@@ -12,8 +12,10 @@
 				this._render();
 			},
 			_render:function(){
-				//console.log(this.source)
-				//this.border.append(this.id)
+				console.log(this.border)
+				this.border.append(this.id)
+				
+				//fui.parse(this.source);
 				
 				//console.log(this.el)
 				

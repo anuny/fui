@@ -3,8 +3,8 @@
 	var modules = {},
 	doc = win.document,
 	types = [
-		'Function','Array','Object','String','Boolean',
-		'Number','RegExp','Date','Error','undefined','null'
+		'Array','Boolean','Date','Error','Function','Number',
+		'undefined','null','Object','RegExp','String'
 	],
 	typeIs = function(){
 		var obj = arguments[0],
@@ -135,7 +135,8 @@
 		require:require,
 		window:win,
 		document:doc,
-		util:util
+		util:util,
+		dom:$||jQuery
 	});
 	win.fui = fui;
 }(this);
