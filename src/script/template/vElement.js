@@ -8,7 +8,7 @@ fui.define('template/vElement',function( module ){
 		}
 
 		//可以通过只传递tagName和children参数
-		if (util.isArray(props)) {
+		if (fui.util(props).isArray) {
 			children = props;
 			props = {};
 		}

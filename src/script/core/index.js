@@ -1,27 +1,38 @@
 !function(win){
 	'use strict';
-	
 	var modules = {},
-	
 	doc = win.document,
-	
-	typeOf = function(obj){
-		return Object.prototype.toString.call(obj).replace(/\[object\s|\]/g, '');
+	types = [
+		'Function','Array','Object','String','Boolean',
+		'Number','RegExp','Date','Error','undefined','null'
+	],
+	typeIs = function(){
+		var obj = arguments[0],
+		tostring = Object.prototype.toString,
+		regexp = /\[object\s|\]/g;
+		return tostring.call(obj).replace(regexp, '');
 	},
-	type = (function(){
-		var ret = {};
-		['Function','Array','Object','String','Boolean','Number','RegExp'].forEach(function(e){
-			ret['is'+e] = function(){
-				return e === typeOf(arguments[0])
-			}
-		});
-		return ret;
-	})(),
-	require = function(name,callback){
-		if(type.isFunction(name)) {
+	util = function(selector) {
+		return new util.fn.init(selector);
+	};
+	util.fn = util.prototype = {	
+		constructor: util,
+		init:function(selector) {
+			this.selector = selector;
+			this.type = typeIs(this.selector);
+			var This = this;
+			types.forEach(function(type){
+				This['is' + type] = type === This.type;
+			});
+		}
+	};
+	util.fn.init.prototype = util.fn;
+	
+	var require = function(name,callback){
+		if(util(name).isFunction) {
 			return name();
 		}
-		if(!type.isArray(name)){
+		if(!util(name).isArray){
 			name = [name]
 		}
 
@@ -30,7 +41,7 @@
 			var exp = getExp(name[i])
 			exports.push(exp)
 		}
-		if(type.isFunction(callback)){
+		if(util(callback).isFunction){
 			callback.apply(null,exports)
 		}else{
 			return exports[0]
@@ -42,7 +53,7 @@
 		if(!mod){
 			return name + ' is not define';
 		}
-		if(type.isFunction(mod.factory)){
+		if(util(mod.factory).isFunction){
 			if(mod.factory(mod)){
 				return mod.factory(mod)
 			}
@@ -53,7 +64,7 @@
 	},
 	
 	define = function(name,factory){
-		if(!name||!type.isString(name)) {
+		if(!name||!util(name).isString) {
 			return  name + ' is not string';
 		}
 		modules[name]={
@@ -67,7 +78,7 @@
 		var  options, copy, clone, name, src,
 		i = 0, target = this, deep = false, length = arguments.length;
 
-		if(type.isBoolean(arguments[0])){
+		if(util(arguments[0]).isBoolean){
 			deep = true;
 			i = 1;
 			if(length > 2){
@@ -90,7 +101,7 @@
 					continue;
 				}
 				if(deep && copy && 'object' == typeof copy){
-					if(type.isArray(copy)){
+					if(util(copy).isArray){
 						clone = []
 					}else{
 						clone = {}
@@ -103,22 +114,22 @@
 		}
 		return target;
 	},
-	util = extend({typeOf:typeOf},type),
 	fui = function(selector,callback) {
 		return new fui.fn.init(selector,callback);
 	};
 	fui.fn = fui.prototype = {	
 		constructor: fui,
 		init:function(selector,callback) {
-			if(type.isFunction(selector)){
+			if(util(selector).isFunction){
 				fui.on('ready',selector);
 			}else if(selector.nodeType){
 				fui.parse(selector,callback);
+				
 			}
 		}
 	};
-	fui.fn.init.prototype = fui.fn;
 	fui.extend = fui.fn.extend = extend;
+	fui.fn.init.prototype = fui.fn;
 	fui.extend({
 		define:define,
 		require:require,

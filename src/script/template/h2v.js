@@ -2,6 +2,7 @@ fui.define('template/h2v',function( module ){
 	var vElement = fui.require('template/vElement');
 	
 	function h2v (html) {
+		
 	  var root = $(html)[0];
 	  return {
 		vdom: toVirtualDOM(root),
@@ -30,7 +31,14 @@ fui.define('template/h2v',function( module ){
 	}
 
 	function attrsToObj (dom) {
-	  var attrs = dom.attributes
+		if(!dom.nodeType){
+			return
+		}
+		
+	  var attrs = dom.attributes;
+	  if(!attrs){
+		  return
+	  }
 	  var props = {}
 	  for (var i = 0, len = attrs.length; i < len; i++) {
 		var name = attrs[i].name

@@ -11,7 +11,6 @@ fui.define('template',function( module ){
 		init:function(source,data) {
 			var compiled = function(){
 				var compiler = artTemplate.compile(source);
-				
 				return vTemplate(compiler, data);
 			};
 			compiled = compiled();
@@ -27,7 +26,6 @@ fui.define('template',function( module ){
 		for(var i in options){
 			artTemplate.config(i,options[i])
 		}
-		
 	}
 	template.fn.init.prototype = template.fn;
 	module.exports = template;

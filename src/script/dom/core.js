@@ -2,7 +2,7 @@ fui.define('dom/core',function( module ){
 	
 	"use strict";
 	
-	var 
+	var
 
 	// 匹配简单选择器
 	regSimple = /^[\w\-_#]+$/,
@@ -42,8 +42,7 @@ fui.define('dom/core',function( module ){
 		if (context.getElementsByClassName){
 			return context.getElementsByClassName(className);
 		};
-			
-		
+
 		// 兼容处理
 		var nodes = context.getElementsByTagName("*");
 		util(nodes).each(function(){
@@ -124,25 +123,16 @@ fui.define('dom/core',function( module ){
 		
 		return ret;
 	},
-	
-	// 把html转换为dom对象
-	parseHTML = function (html) {	
-		var div = doc.createElement("div");
-		div.innerHTML = html;
-		var ele = div.childNodes;
-		div = null;
-		return ele;
-	},
 
-	
+
 	fliter = function (selector, context) {
-		
-		selector = util(selector).trim();
-		
+
+		selector = selector.trim();
+
 		// 判断html
 		var isHtml = regHtml.test(selector);
 		if (isHtml){
-			return parseHTML(selector);
+			return $.parseHTML(selector, context);
 		}
 		
 		// 判断简单选择器 #demo .test div 
@@ -151,12 +141,7 @@ fui.define('dom/core',function( module ){
 			return getElement(selector, context);
 		}
 
-		// 原生方法
-		/* if (context.querySelectorAll){
-			return context.querySelectorAll(selector);
-		} */
-
-		// 兼容方法
+		// 遍历
 		return dom.find(selector, context);	
 	},
 	
@@ -173,23 +158,23 @@ fui.define('dom/core',function( module ){
 		if(selector === win || selector === doc){
 			context = selector
 		}
-
-		var _selector= util(selector);
 		
-		if(_selector.is('number')){
-			selector = _selector.to('string');
+		
+		if(util(selector).isNumber){
+			selector = util(selector).to('string');
 		};
 		
 		var elements = selector
 		
-		if(_selector.is('string')){
-			elements = fliter(selector, context)
+		if(util(selector).isString){
+			elements = fliter(selector, context);	
 		};
 		
 		if(selector.nodeType){
 			elements = [elements]
 		}
 		elements = makeArray(elements);
+		
 		return {elements:elements, selector:selector, context:context};
 	},
 	dom = function(selector, context) {
@@ -201,7 +186,7 @@ fui.define('dom/core',function( module ){
 			if(typeof selector=='function'){
 				dom.ready(selector);
 				selector = doc;
-			}
+			};
 			var result = query(selector, context);
 			this.length = 0;
 			this.selector = result.selector;
@@ -209,7 +194,8 @@ fui.define('dom/core',function( module ){
 			[].push.apply(this, result.elements);
 			return this;
 		}
-	}
+	};
+	dom.extend = dom.fn.extend = fui.extend;
 	dom.fn.fuiDom.prototype = dom.fn;
 	module.exports = dom;
 });

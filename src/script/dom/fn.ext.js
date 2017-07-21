@@ -1,10 +1,7 @@
-(function(fui){
-	
+!function(fui,util,$){
 	var win = fui.window,
-	doc = fui.document,
-	util = fui.util,
-	$ = fui.dom;
-	var fn = {
+	doc = fui.document;
+	$.fn.extend({
 		each:function(callback){
 			return util(this).each(callback);
 		},
@@ -21,6 +18,7 @@
 			$nodes.selector = this.selector + ' ' + selector;
 			return $nodes;
 		},
+		
 		filter:function(selector){
 			var nodes = [];
 			this.each(function(i){
@@ -63,10 +61,12 @@
 			}
 			return $.attr(this[0], name, value);
 		},
-		removeAttr: function(name) {
-			var attrNames = util(name).to('array',' ');
+		removeAttr: function(names) {
+			if(util(names).isString){
+				names = util(names).to('array',' ');
+			}
 			var node = this;
-			util(attrNames).each(function(i,name){
+			util(names).each(function(i,name){
 				node.each(function() {
 					this.removeAttribute(name)
 				})
@@ -126,6 +126,12 @@
 					this.style.display = 'block';
 				}
 			});
+		},
+		width:function(value){
+			return this.css('width',value);
+		},
+		height:function(){
+			return this.css('height',value);
 		},
 		hasClass: function(className){
 			return new RegExp("(\\s|^)" + className + "(\\s|$)")
@@ -201,7 +207,15 @@
 			return this.each(function() {
 				this.innerHTML = '';
 			});
+		},
+		replaceWith:function(node){
+			var newNode = node[0];
+			var parent =newNode.parentNode;
+			return this.each(function() {
+				if(parent && this != newNode){
+					parent.replaceChild(this,newNode);
+				}
+			});
 		}
-	};
-	fui.extend($.fn,fn);
-})(fui);
+	})
+}(fui,fui.util,fui.dom);

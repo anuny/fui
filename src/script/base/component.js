@@ -17,7 +17,7 @@
 
 		set: function(attrs) {
 			
-			if (util.isString(attrs)) {
+			if (util(attrs).isString) {
 				return this;
 			}
 			

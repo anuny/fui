@@ -176,12 +176,7 @@ fui.define('core/extend',function( module ){
 			attrs.defaultValue = attrs.value;
 		}
 		
-		var parent = node[0].parentNode;
-
-		if(parent && this.el[0] != node[0]){
-			
-			parent.replaceChild(this.el[0],node[0]);
-		}
+		this.el.replaceWith(node);
 
 		this.set(attrs);
 		return this;

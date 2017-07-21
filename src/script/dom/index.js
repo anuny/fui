@@ -1,4 +1,9 @@
 //=require sizzle.js
 //=require core.js
 //=require ext.js
-//=require ext.fn.js
+//=require ext.support.js
+//=require ext.clean.js
+//=require ext.attr.js
+//=require ext.insert.js
+//=require ext.ready.js
+//=require fn.ext.js

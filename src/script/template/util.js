@@ -2,6 +2,10 @@ fui.define('template/util',function( module ){
 	
 	var exports = {};
 	
+	fui.extend(exports,fui.util);
+	
+
+	
 	exports.each = function(array, fn) {
 		for (var i = 0, len = array.length; i < len; i++) {
 			fn(array[i], i);

@@ -1,172 +1,142 @@
-fui.define('core/util',function( module ){
-	
+!function(){
 	"use strict";
-	
-	var util = function(context) {
-		return new util.fn.init(context);
-	};
-	
-	util.fn = util.prototype = {
-		
-		constructor: util,
-		
-		init:function(context) {
-			this.context = context;
-			this.error = null;
-			return this;
-		},
-
-		// each封装
-		each:function(callback){
-			
-			var context = this.context, name, i = 0;
-			
-			if(this.is('string')){
-				context = context.split('');
+	var util = fui.util;
+	var userAgent = navigator.userAgent.toLowerCase();
+	fui.extend(util,{
+		userAgent: userAgent,
+		browser:{
+			version: (userAgent.match( /.+(?:rv|it|ra|ie)[\/: ]([\d.]+)/ ) || [])[1],
+			safari: /webkit/.test( userAgent ),
+			opera: /opera/.test( userAgent ),
+			msie: /msie/.test( userAgent ) && !/opera/.test( userAgent ),
+			mozilla: /mozilla/.test( userAgent ) && !/(compatible|webkit)/.test( userAgent )
+		}
+	});
+	fui.extend(util.fn,{
+		each : function(callback){
+			var selector = this.selector, name, i = 0;
+			if(this.isString){
+				selector = selector.split('');
 			};
-			var length = context.length;
+			var length = selector.length;
 			if (length == undefined) {
-				for (name in context) {
-					if (callback.call(context[name], name, context[name]) === false) break;
+				for (name in selector) {
+					if (callback.call(selector[name], name, selector[name]) === false) break;
 				}
 			} else {
-				for (var value = context[0]; i < length && callback.call(value, i, value) !== false; value = context[++i]) {}
+				for (var value = selector[0]; i < length && callback.call(value, i, value) !== false; value = selector[++i]) {}
 			}
-			return context;
+			return selector;
 		},
-		length: function(){
-			var context = this.context;
-			if(this.is('plainObject')){
-				var length = 0;
-				for(var i in context) length ++;
-				return length
+		is : function(type){
+			var selector = this.selector;
+			if(!type){
+				return this.type;
 			}
-			return context.length;
-		},
-		
-		// 类型判断
-		is:function(type){
-			var context = this.context;
-			
-			
-			/* var class2type = {},
-			toString = class2type.toString;
-			
-			this.each("Boolean Number String Function Array Date RegExp Object Error".split(" "), function(i, name) {
-			  class2type["[object " + name + "]"] = name.toLowerCase();
-			})
-			 */
-			// 获取数据类型
-			var is = function(obj) {
-				return null == obj ? obj + '' : Array == obj.constructor ? 'array' : typeof obj;
-				//return typeof obj === "object" || typeof obj === "function" ? class2type[toString.call(obj)] || "object" : typeof obj;
-			};
-
-			
-			if(!type) return is(context);
-			
 			switch(type){
-				// 验证不存在的对象
-				case 'null': 
-					return null === context;
 
-				// 验证空值
-				case 'empty':
-					return (context=='' || context && context.length == 0) ? true : false;
-				
-				// 验证简单对象 {a:b}
-				case 'plainObject': 
-					return 'object'==is(context) && 'isPrototypeOf' in context;
-				
-				// 验证空对象 {}
-				case 'emptyObject':
-					if(!this.is('object')){
-						return false
-					}else{
-						var hasKey = (function(){for (var i in context) return true})();
-						if(hasKey) return false;
-						return true
-					}
-				
-				// 验证网址(xx://)
-				case 'url':
-					return /^((.*\:)?\/\/)/.test(context);
-		
-				// 验证电子邮件
-				case 'email':
-					return /^([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+(\.[a-zA-Z]{2,3})+$/.test(context);
+			// 验证空值
+			case 'empty':
+				return (selector=='' || selector && selector.length == 0) ? true : false;
+			
+			// 验证简单对象 {a:b}
+			case 'plainObject': 
+				return this.isObject && 'isPrototypeOf' in selector;
+			
+			// 验证空对象 {}
+			case 'emptyObject':
+				var selector = this.selector;
+				if(!this.isObject){
+					return false
+				}
+				var hasKey = (function(){for (var i in selector) return true})();
+				if(hasKey){
+					return false;
+				}
+				return true;
+			
+			// 验证网址(xx://)
+			case 'url':
+				return /^((.*\:)?\/\/)/.test(this.selector);
 
-				// 验证手机
-				case 'phone':
-					return /^1[3458]\d{9}$/.test(context);
-				
-				// 验证身份证
-				case 'id':
-					return /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(context);
-				
-				// 验证IP地址
-				case 'ip':
-					return /^((([1-9]\d?)|(1\d{2})|(2[0-4]\d)|(25[0-5]))\.){3}(([1-9]\d?)|(1\d{2})|(2[0-4]\d)|(25[0-5]))$/.test(context);
-				
-				// 验证汉字
-				case 'zh':
-					return /^[\u4e00-\u9fa5]+$/.test(context);
-				
-				// 验证英文
-				case 'en':
-					return /^[A-Za-z]+$/.test(context);
+			// 验证电子邮件
+			case 'email':
+				return /^([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+(\.[a-zA-Z]{2,3})+$/.test(this.selector);
+
+			// 验证手机
+			case 'phone':
+				return /^1[3458]\d{9}$/.test(this.selector);
+			
+			// 验证身份证
+			case 'id':
+				return /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(this.selector);
+			
+			// 验证IP地址
+			case 'ip':
+				return /^((([1-9]\d?)|(1\d{2})|(2[0-4]\d)|(25[0-5]))\.){3}(([1-9]\d?)|(1\d{2})|(2[0-4]\d)|(25[0-5]))$/.test(this.selector);
+			
+			// 验证汉字
+			case 'zh':
+				return /^[\u4e00-\u9fa5]+$/.test(this.selector);
+			
+			// 验证英文
+			case 'en':
+				return /^[A-Za-z]+$/.test(this.selector);
+			default:
+				return type === this.type;
 			}
-			return type === is(context);
 		},
 		// 去除空格
 		trim:function(type){
-			var context = this.context;
-			if(!this.is('string')) return context;
+			var selector = this.selector;
+			if(!this.isString){
+				return selector;
+			}
 			switch(type){
 				
 				// 首空格
 				case 'left': 
-					return context.replace(/(^\s*)/g, ''); 
+					return selector.trimLeft(); 
 				
 				// 尾空格
 				case 'right':
-					return context.replace(/(\s*$)/g, '');
+					return selector.trimRight(); 
 				
 				// 全部空格
 				case 'all': 
-					return context.replace(/\s/g, '');
+					return selector.trimAll(); 
 				
 				// 首尾空格
 				default: 
-					return context.replace(/^\s*|\s*$/g, '');
+					return selector.trim(); 
 			}
 		},
 		to:function(type,params){
-			var context = this.context;
+			var selector = this.selector;
 			switch(type){
 				
 				// 转换大写
 				case 'upper':
-					return context.toUpperCase();
+					return selector.toUpperCase();
 				
 				// 转换小写
 				case 'lower': 
-					return context.toLowerCase();
+					return selector.toLowerCase();
 				
 				// 转换数字
 				case 'int': 
-					return parseInt(context);
+					return parseInt(selector);
 				
 				// 转换字符串
 				case 'string': 
-					return String(context);
+					return String(selector);
 				
 				// 转换数组
 				case 'array': 
 					if(this.is('array')){
-						return context;
+						return selector;
 					}else if(this.is('string')){
-						return params||params==''?context.split(params):[context];
+						return params||params==''?selector.split(params):[selector];
 					}else if(this.is('plainObject')){
 						var ret=[];
 						this.each(function(i, ele) {
@@ -179,48 +149,47 @@ fui.define('core/util',function( module ){
 						});
 						return ret;
 					}else{
-						return [context];
+						return [selector];
 					}
 					
 				// 转换对象
 				case 'object': 
 					if(this.is('array')){
-						var context = {};
+						var ret = {};
 						this.each(function(i,ele){
-							context[i] = ele;
+							ret[i] = ele;
 						})
 					}
-					return context;
+					return ret;
 			}	
 		},
-		
 		// 排序
 		sort:function(order){
-			var context = this.context;
+			var selector = this.selector;
 			var type = this.is();
 			
 			switch(type){		
 				// 字符串排序
 				case 'string': 
-					context = this.to('array','');
-					context = context.sort();
-					if(order=='desc') context = context.reverse(); 
-					return context.join('')
+					selector = this.to('array','');
+					selector = selector.sort();
+					if(order=='desc') selector = selector.reverse(); 
+					return selector.join('')
 				
 				// 数组排序
 				case 'array':
-					context = context.sort();
-					if(order=='desc') context = context.reverse(); 
-					return context
+					selector = selector.sort();
+					if(order=='desc') selector = selector.reverse(); 
+					return selector
 				
 				// 对象排序
 				case 'object': 
 					var array = this.to('array',true);
 					var ret = {};
-					context = array.sort();
-					if(order=='desc') context = context.reverse(); 
+					selector = array.sort();
+					if(order=='desc') selector = selector.reverse(); 
 
-					util(context).each(function(i,ele){
+					util(selector).each(function(i,ele){
 						pxui.extend(ret,ele)
 					})
 					return ret;
@@ -228,7 +197,7 @@ fui.define('core/util',function( module ){
 			
 		},
 		remove:function (val){
-			var context = this.context;
+			var selector = this.selector;
 			
 			var type = this.is();
 			
@@ -236,61 +205,48 @@ fui.define('core/util',function( module ){
 			
 				// 删除指定字符串
 				case 'string': 
-					return context.replace(val,'');
+					return selector.replace(val,'');
 				
 				// 删除数组指定元素
 				case 'array':
-					var i = context.indexOf(val);
-					if(i>-1) context.splice(i, 1);
-					return context;
+					var i = selector.indexOf(val);
+					if(i>-1) selector.splice(i, 1);
+					return selector;
 				
 				// 删除对象指定属性
 				case 'object': 
 					this.each(function(i,ele){
 						if(util(val).is('plainObject')){
-							if((i in val) && val[i] == ele) delete context[i];
+							if((i in val) && val[i] == ele) delete selector[i];
 						}else{
-							if(val == ele) delete context[i];
+							if(val == ele) delete selector[i];
 						}
 					})
-					return context;
+					return selector;
 			};
 			
 		},
 		merge:function(val){
-			var context = this.context;
+			var selector = this.selector;
 			
 			var type = this.is();
 			
 			switch(type){		
 				// 合并字符串
 				case 'string': 
-					return context + val;
+					return selector + val;
 				
 				// 合并数组
 				case 'array':
 					util(val).is('array') || (val = [val]);
-					return context.concat(val);
+					return selector.concat(val);
 				
 				// 合并对象
 				case 'object': 
-					pxui.extend(context,val);
-					return context;
+					pxui.extend(selector,val);
+					return selector;
 			};
 		}
-	};
-	util.fn.init.prototype = util.fn;
+	});
 	
-	var userAgent = navigator.userAgent.toLowerCase();
-	util.browser={
-		version: (userAgent.match( /.+(?:rv|it|ra|ie)[\/: ]([\d.]+)/ ) || [])[1],
-		safari: /webkit/.test( userAgent ),
-		opera: /opera/.test( userAgent ),
-		msie: /msie/.test( userAgent ) && !/opera/.test( userAgent ),
-		mozilla: /mozilla/.test( userAgent ) && !/(compatible|webkit)/.test( userAgent )
-	}
-	return util;
-});
-
-
-fui.extend({'util':fui.require('core/util')});
+}();

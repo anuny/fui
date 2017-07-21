@@ -1,6 +1,5 @@
 fui.define('template/vTemplate',function( module ){
 	var util = fui.require('template/util');
-	var vTemplate = fui.require('template/vTemplate');
 	var patch= fui.require('template/patch');
 	var h2v= fui.require('template/h2v');
 	
@@ -18,7 +17,7 @@ fui.define('template/vTemplate',function( module ){
 	  
 	 
 
-	  util.extend(VirtualTemplate.prototype, {
+	  fui.extend(VirtualTemplate.prototype, {
 		compileFn: compileFn,
 		setData: setData,
 		makeVirtualDOM: makeVirtualDOM,
@@ -68,7 +67,7 @@ fui.define('template/vTemplate',function( module ){
 	} 
 
 	function vTemplate(compileFn, data) {
-	  var VirtualTemplate = makeTemplateClass(compileFn)
+	  var VirtualTemplate = makeTemplateClass(compileFn);
 	  return data
 		? new VirtualTemplate(data)
 		: VirtualTemplate

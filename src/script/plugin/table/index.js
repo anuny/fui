@@ -35,7 +35,7 @@
 				var bodyCompiled = fui.template(bodyTpl,{
 					columns:this.columns
 				});
-				
+
 				this.header = headerCompiled;
 				this.body = bodyCompiled;
 				

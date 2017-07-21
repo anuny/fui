@@ -12,7 +12,7 @@
 				this._render();
 			},
 			_render:function(){
-				console.log(this.source)
+				//console.log(this.source)
 				//this.border.append(this.id)
 				
 				//console.log(this.el)
