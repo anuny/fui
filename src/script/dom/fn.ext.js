@@ -29,17 +29,17 @@
 		children:function(selector){
 			return this.find('>'+selector||'*')
 		},
-		on:function(){
-			
+		on:function(eventType, funcHandle, useCapture){
+			$.addEventListener.call(this, eventType, funcHandle, useCapture);
 		},
 		off:function(){
-			
+			$.removeEventListener.call(this, eventType, funcHandle, useCapture);	
 		},
-		bind:function(){
-			
+		bind:function(types, data, fn){
+			return this.on(types, null, data, fn);
 		},
-		unbind:function(){
-			
+		unbind:function(types, fn){
+			return this.off(types, null, fn);
 		},
 		one:function(){
 			

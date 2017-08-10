@@ -124,7 +124,6 @@
 				fui.on('ready',selector);
 			}else if(selector.nodeType){
 				fui.parse(selector,callback);
-				
 			}
 		}
 	};

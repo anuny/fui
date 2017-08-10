@@ -43,6 +43,7 @@
 					try {
 						testEl.doScroll('left')
 					} catch (e) {
+						console.log(ready)
 						return setTimeout(function() { ready(fn) }, 50)
 					}
 					fn.call(This)
